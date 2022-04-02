@@ -15,7 +15,7 @@ router.post('/signup', async (req, res) => {
     req.session.password = password
     res.send(`user signup as ${req.session.username} was successful`)
   } catch (e) {
-    res.send('user signup had a problem')
+    res.send('user signup was not successful')
   }
 })
 
@@ -32,12 +32,15 @@ router.post('/login', logError, (req, res, next) => {
           req.session.password = password
           res.send(`succesfully logged in as ${req.session.username}`)
         }
+        if (err) {
+          next(err)
+        }
       } catch (e) {
         next(err)
       }
     })
   } catch (err) {
-    next(err)
+    res.send('a login error occurred')
   }
 })
 
@@ -47,26 +50,17 @@ router.post('/logout', isAuthenticated, (req, res) => {
 })
 
 router.post('/update', async (req, res) => {
-  try {
-    const { body } = req
-    const { username, password } = body
-    await User.updateOne({ username }, { password })
-
-    res.send('user update was successful')
-  } catch (e) {
-    res.send('error occured')
-  }
+  const { body } = req
+  const { username, password } = body
+  await User.updateOne({ username }, { password })
+  res.send('user update was successful')
 })
 
 router.post('/delete', async (req, res) => {
-  try {
-    const { body } = req
-    const { username, password } = body
-    await User.deleteOne({ username, password })
-    res.send(`user ${req.session.username} was successfully deleted`)
-  } catch (e) {
-    res.send('error occured')
-  }
+  const { body } = req
+  const { username, password } = body
+  await User.deleteOne({ username, password })
+  res.send(`user ${req.session.username} was successfully deleted`)
 })
 
 module.exports = router
