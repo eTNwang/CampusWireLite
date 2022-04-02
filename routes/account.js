@@ -33,7 +33,7 @@ router.post('/login', logError, (req, res, next) => {
           res.send(`succesfully logged in as ${req.session.username}`)
         }
       } catch (e) {
-        res.send('error occured')
+        next(err)
       }
     })
   } catch (err) {

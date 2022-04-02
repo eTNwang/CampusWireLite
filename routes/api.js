@@ -5,12 +5,8 @@ const Question = require('../models/questions')
 const router = express.Router()
 
 router.get('/questions', async (req, res) => {
-  try {
-    const all = await Question.find({})
-    res.send(all)
-  } catch {
-    res.send('an error occurred')
-  }
+  const questions = await Question.find()
+  res.json(questions)
 })
 
 router.post('/questions/add', isAuthenticated, async (req, res) => {
@@ -23,12 +19,8 @@ router.post('/questions/add', isAuthenticated, async (req, res) => {
 router.post('/questions/answer', isAuthenticated, async (req, res) => {
   const { body } = req
   const { _id, answer } = body
-  try {
-    await Question.updateOne({ _id }, { $set: { answer } })
-    res.send('question updated')
-  } catch (e) {
-    res.send('an error occurred')
-  }
+  await Question.updateOne({ _id }, { $set: { answer } })
+  res.send(`question answered by ${req.session.username}`)
 })
 
 module.exports = router
