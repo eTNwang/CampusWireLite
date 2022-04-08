@@ -11,12 +11,17 @@ router.post('/signup', async (req, res) => {
   const { username, password } = body
   try {
     await User.create({ username, password })
-    req.session.username = username
+    req.session.username = ``
     req.session.password = password
     res.send(`user signup as ${req.session.username} was successful`)
   } catch (e) {
     res.send('user signup was not successful')
   }
+})
+
+router.get('/get', async (req, res) => {
+  const users = await User.find()
+  res.json(users)
 })
 
 router.post('/login', logError, (req, res, next) => {
@@ -45,8 +50,20 @@ router.post('/login', logError, (req, res, next) => {
 })
 
 router.post('/logout', isAuthenticated, (req, res) => {
-  req.session.username = 'no user'
-  res.send('succesfully logged out')
+  req.session.username = ''
+  res.send('user logged out')
+})
+
+router.get('/getLoggedIn', (req, res) => {
+  if (req.session.username === '') {
+    res.send(false)
+  } else {
+    res.send(true)
+  }
+})
+
+router.get('/getcurruser', (req, res) => {
+  res.send(req.session.username)
 })
 
 router.post('/update', async (req, res) => {
@@ -57,10 +74,8 @@ router.post('/update', async (req, res) => {
 })
 
 router.post('/delete', async (req, res) => {
-  const { body } = req
-  const { username, password } = body
-  await User.deleteOne({ username, password })
-  res.send(`user ${req.session.username} was successfully deleted`)
+  await User.deleteMany({})
+  res.send(`all users were successfully deleted`)
 })
 
 module.exports = router

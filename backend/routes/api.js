@@ -23,4 +23,9 @@ router.post('/questions/answer', isAuthenticated, async (req, res) => {
   res.send(`question answered by ${req.session.username}`)
 })
 
+router.post('/questions/delete', async (req, res) => {
+  await Question.deleteMany({})
+  res.send(`all questions were successfully deleted`)
+})
+
 module.exports = router

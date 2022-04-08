@@ -41,7 +41,6 @@ app.get('/', (req, res) => {
 app.use('/account', AccountRouter)
 app.use('/api', APIRouter)
 
-// set favicon
 app.get('/favicon.ico', (req, res) => {
   res.status(404).send()
 })
