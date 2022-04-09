@@ -16,11 +16,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export const Home = () => {
   const [questionText, setQuestionText] = useState('')
   const [msg, setMsg] = useState('')
-  const [users, setUsers] = useState([])
   const [curruser, setCurrUser] = useState([])
   const [loginStatus, setLoginStatus] = useState([])
   const [questions, setQuestions] = useState([])
-  const [latestquest, setLatestQuest] = useState([])
   const [show, setShow] = useState([])
 
   const getStatus = async setLoginStatus2 => {
@@ -30,10 +28,6 @@ export const Home = () => {
     } catch (e) {
       console.log('user is not logged in')
     }
-  }
-  const getUsers = async () => {
-    const { data } = await axios.get('/account/get')
-    setUsers(data)
   }
 
   const getcurruser = async () => {
@@ -62,7 +56,6 @@ export const Home = () => {
 
   useEffect(() => {
     const intervalID = setInterval(() => {
-      getUsers()
       getcurruser()
       getStatus(setLoginStatus)
       obtainquestions()
@@ -72,8 +65,8 @@ export const Home = () => {
 
   return (
     <>
-      <Navbar className="bg-light justify-content-between">
-        <Navbar.Brand>Campuswire Lite</Navbar.Brand>
+      <Navbar>
+        <Navbar.Brand>Forum:</Navbar.Brand>
         {loginStatus && (
         <div>
           <Link to="/home">Back to the Homepage </Link>
@@ -89,7 +82,7 @@ export const Home = () => {
             {' '}
             {curruser}
           </Navbar.Text>
-          <Button variant="secondary" onClick={userlogout}>Logout</Button>
+          <Button onClick={userlogout}>Logout</Button>
         </div>
         )}
         {!loginStatus && (
@@ -113,7 +106,7 @@ export const Home = () => {
       {loginStatus && (
       <>
         <Button onClick={showmodal}>
-          Ask a question +
+          Question Input +
         </Button>
       </>
       )}
@@ -124,7 +117,7 @@ export const Home = () => {
           onHide={closemodal}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Ask a question!</Modal.Title>
+            <Modal.Title>Input your Question</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
@@ -164,7 +157,7 @@ export const Home = () => {
           </p>
           <>
             {loginStatus && (
-            <Questioninput isLoggedIn={loginStatus} question={question} />
+            <Questioninput loginstatus={loginStatus} question={question} />
             )}
           </>
         </Borderbox>

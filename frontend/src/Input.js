@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 
-const Question = ({ isLoggedIn, question }) => {
+const Question = ({ loginstatus, question }) => {
   const [answer, setAnswer] = useState('')
 
   const changetext = e => {
@@ -18,9 +18,9 @@ const Question = ({ isLoggedIn, question }) => {
 
   return (
     <div>
-      {isLoggedIn && (
+      {loginstatus && (
         <div>
-          <input placeholder="Answer a question" onChange={changetext} />
+          <input placeholder="Type your answer here" onChange={changetext} />
           <Button onClick={submitquestion}>Submit Your Answer</Button>
         </div>
       )}

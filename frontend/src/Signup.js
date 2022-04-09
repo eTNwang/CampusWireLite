@@ -30,7 +30,7 @@ const Signup = () => {
   return (
     <div>
       <>
-        <h1>Sign Up</h1>
+        <h2>Account Creation</h2>
         <form>
           <input placeholder="Username" onChange={e => changeusername(e.target.value)} />
           <input placeholder="Password" onChange={e => changepassword(e.target.value)} />
@@ -49,7 +49,7 @@ const Signup = () => {
           {msg}
           {' '}
         </p>
-        <p><Link to="/login"> Already Have an Account? Log In Here!</Link></p>
+        <p><Link to="/login"> Click here to log into your account</Link></p>
         <p><Link to="/"> Back to Main Menu</Link></p>
       </>
     </div>

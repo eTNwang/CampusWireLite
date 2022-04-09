@@ -47,7 +47,7 @@ const Login = () => {
           {msg}
           {' '}
         </p>
-        <p><Link to="/signup"> Dont Have an Account? Sign Up Here!</Link></p>
+        <p><Link to="/signup"> Create your account here</Link></p>
         <p><Link to="/"> Back to Main</Link></p>
       </>
     </div>
