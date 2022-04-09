@@ -14,11 +14,13 @@ const Signup = () => {
   const [signedup, setsignedup] = useState(false)
   const [msg, setMsg] = useState('')
   const navigate = useNavigate()
+
   const signup = async () => {
+    setsignedup(true)
     try {
       await axios.post('/account/signup', { username, password })
       setMsg(`${username} was signed up successfully`)
-      setsignedup(true)
+      navigate('/')
     } catch (e) {
       alert(`an error occurred`)
       setsignedup(false)

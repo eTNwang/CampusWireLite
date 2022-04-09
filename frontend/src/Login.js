@@ -21,6 +21,7 @@ const Login = () => {
     } else {
       setMsg('successful login')
       setLoggedin(true)
+      navigate('/')
     }
   }
 
